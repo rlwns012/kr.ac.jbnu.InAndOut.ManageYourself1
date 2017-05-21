@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="다이어리의 기간을 정해주세요(월단위) " />
+
+    <Button
+        android:id="@+id/monthSet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setMonthConfirm"
+        android:text="확인" />
+</LinearLayout>

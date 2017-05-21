@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0080ff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvHello"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="Choose your Game type"
+        android:textColor="#ffffff"
+        android:textSize="30.0sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btneasy"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="15dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="EASY"
+        android:textColor="#000000"
+        android:textSize="25.0sp" />
+
+    <Button
+        android:id="@+id/btnnormal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="NORMAL"
+        android:textColor="#000000"
+        android:textSize="25.0sp" />
+
+    <Button
+        android:id="@+id/btnhard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="HARD"
+        android:textColor="#000000"
+        android:textSize="25.0sp" />
+
+    <Button
+        android:id="@+id/btnrank"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="rank"
+        android:textColor="#000000"
+        android:textSize="25.0sp" />
+
+    <Button
+        android:id="@+id/btnmyinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="my info"
+        android:textColor="#000000"
+        android:textSize="25.0sp" />
+</LinearLayout>
