@@ -26,10 +26,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_BIRTH = "birth";
     private static final String KEY_NAME = "name";
-    private static final String KEY_SCORE = "socre";
-    private static final String KEY_TIMEPERGAME = "timepergame";
-    private static final String KEY_PLAYTIME = "playtime";
-    private static final String KEY_PLAYCOUNT = "playcount";
+    private static final String KEY_DAYCOUNT = "playcount";
 
     private SQLiteDatabase database;
 
@@ -43,7 +40,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + " ( "
                 + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
                 + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_NAME + " TEXT, " + KEY_BIRTH + " TEXT, "
-                + KEY_SCORE + " INT, " + KEY_TIMEPERGAME + " INT, " + KEY_PLAYTIME + " INT, " + KEY_PLAYCOUNT + " INT)";
+                + KEY_DAYCOUNT + " INT)";
 
         db.execSQL(sql);
     }
@@ -66,10 +63,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_BIRTH, user.getbirth());
         values.put(KEY_NAME, user.getName());
-        values.put(KEY_SCORE, user.getScore());
-        values.put(KEY_PLAYTIME, user.getPlayTime());
-        values.put(KEY_TIMEPERGAME, user.getTimePerGame());
-        values.put(KEY_PLAYCOUNT, user.getPlayCount());
+        values.put(KEY_DAYCOUNT, user.getDayCount());
         database.insert(TABLE_USER, null, values);
 
     }
@@ -94,12 +88,10 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public void updateUser(String id, int score, int playCount, int playTime, int timePerGame) {
+    public void updateUser(String id, int dayCount) {
 
-        // 게임이 끝난 후 점수,플레이 시간, 플레이 횟수 등을 갱신 해준다.
-        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_SCORE + "='"
-                + Integer.toString(score) + "', " + KEY_TIMEPERGAME + "='" + Integer.toString(timePerGame) + "', " + KEY_PLAYCOUNT + "='" + Integer.toString(playCount)
-                + "', " + KEY_PLAYTIME + "='" + Integer.toString(playTime) + "' WHERE id='" + id + "'";
+        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_DAYCOUNT + "='"
+                + Integer.toString(dayCount) + "' WHERE id='" + id + "'";
         database = this.getWritableDatabase();
         database.execSQL(selectQuery);
     }
@@ -119,10 +111,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
                     user.setPassword(storedPass);
                     user.setName(cursor.getString(3));
                     user.setbirth(cursor.getString(4));
-                    user.setScore(cursor.getInt(5));
-                    user.setTimePerGame(cursor.getInt(6));
-                    user.setPlayTime(cursor.getInt(7));
-                    user.setPlayCount(cursor.getInt(8));
+                    user.setDayCount(cursor.getInt(5));
                     return true;
                 } else {
                     return false;
@@ -132,72 +121,6 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         return false;
     }
 
-   /* public ArrayList<RankInfoContainer> getScoreRanking() {
-        // DB의 점수와 게임당 시간의 순위를 가져온다.
-        String selectQuery = "SELECT * FROM " + TABLE_USER + " ORDER BY "
-                + KEY_SCORE + " DESC ," + KEY_TIMEPERGAME + " LIMIT 10";
-        // 점수는 내림차순, 게임당 시간은 오름차순 10개를 가지고 온다.
-        database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        // 랭크의 정보를 담을 ArrayList 선언
-        ArrayList<RankInfoContainer> rankInfoList = new ArrayList<RankInfoContainer>();
-
-        if (cursor.getCount() > 0) {
-            if (cursor.moveToFirst()) {
-                do {
-                    // 랭크 정보를 생성
-                    RankInfoContainer ric = new RankInfoContainer(cursor.getString(1),
-                            cursor.getInt(5), cursor.getInt(6), 0, 0); // id, score, timePerGame을 입력한다.
-                    rankInfoList.add(ric);  // ArrayList에 넣어준다.
-
-                } while (cursor.moveToNext());
-
-            }
-        }
-        return rankInfoList; // 정보를 넘겨줌
-    }
-
-    public ArrayList<RankInfoContainer> getPlayTimeRanking() {
-        String selectQuery = "SELECT * FROM " + TABLE_USER + " ORDER BY " + KEY_PLAYTIME + " DESC LIMIT 10";
-        // 플레이 타임 하나의 변수만 내림차순으로 가져온다.
-        database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        ArrayList<RankInfoContainer> rankInfoList = new ArrayList<RankInfoContainer>();
-
-        if (cursor.getCount() > 0) {
-            if (cursor.moveToFirst()) {
-                do {
-                    RankInfoContainer ric = new RankInfoContainer(cursor.getString(1),
-                            0, 0, 0, cursor.getInt(7));  // id, playTime 값 입력
-                    rankInfoList.add(ric);
-
-                } while (cursor.moveToNext());
-
-            }
-        }
-        return rankInfoList;
-    }
-
-    public ArrayList<RankInfoContainer> getPlayCountRanking() {
-        String selectQuery = "SELECT * FROM " + TABLE_USER + " ORDER BY "
-                + KEY_PLAYCOUNT + " DESC LIMIT 10";
-        database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        ArrayList<RankInfoContainer> rankInfoList = new ArrayList<RankInfoContainer>();
-
-        if (cursor.getCount() > 0) {
-            if (cursor.moveToFirst()) {
-                do {
-                    RankInfoContainer ric = new RankInfoContainer(cursor.getString(1),
-                            0, 0, cursor.getInt(8), 0); // id, playCount 입력
-                    rankInfoList.add(ric);
-
-                } while (cursor.moveToNext());
-
-            }
-        }
-        return rankInfoList;
-    }*/
 
     public ArrayList<String> findId(String name, String birth) {
         database = this.getReadableDatabase();

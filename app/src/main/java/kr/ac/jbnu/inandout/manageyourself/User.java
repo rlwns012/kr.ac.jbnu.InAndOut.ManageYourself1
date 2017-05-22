@@ -12,31 +12,15 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String birth;
-    private int score;
-    private int timePerGame;
-    private int playTime;
-    private int playCount;
+    private int dayCount;
+
 
     public User(String id, String password, String name, String birth) {
         this.id = id;
         this.password = password;
         this.name = name;
         this.birth = birth;
-        this.score = 0;
-        this.playTime = 0;
-        this.timePerGame = 60;
-        this.playCount = 0;
-    }
-
-    public void renewUser(int score, int playTime) {
-        if (this.score < score) {        // 최고 점수를 받으면 점수와 게임당 시간을 갱신한다.
-            this.score = score;
-            this.timePerGame = playTime;
-        }
-        this.playCount++;       // 플레이 횟수 증가
-        if (this.score == score && this.timePerGame > playTime) this.timePerGame = playTime;
-        // 점수가 같고 게임당 시간이 적으면 게임당 시간을 갱신힌다.
-        this.playTime += playTime;
+        this.dayCount = 0;
     }
 
     public String getPassword() {
@@ -71,37 +55,11 @@ public class User implements Serializable {
         this.birth = birth;
     }
 
-    public int getScore() {
-        return score;
+    public int getDayCount() {
+        return dayCount;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setDayCount(int dayCount) {
+        this.dayCount = dayCount;
     }
-
-    public int getPlayTime() {
-        return playTime;
-    }
-
-    public void setPlayTime(int playTime) {
-        this.playTime = playTime;
-    }
-
-    public int getPlayCount() {
-        return playCount;
-    }
-
-    public void setPlayCount(int playCount) {
-        this.playCount = playCount;
-    }
-
-    public int getTimePerGame() {
-        return timePerGame;
-    }
-
-    public void setTimePerGame(int timePerGame) {
-        this.timePerGame = timePerGame;
-    }
-
-
 }
