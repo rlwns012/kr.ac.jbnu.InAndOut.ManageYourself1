@@ -43,6 +43,7 @@
         <activity android:name=".PyramidActivity" />
         <activity android:name=".SWOTActivity" />
         <activity android:name=".SWOTListActivity" />
+        <activity android:name=".MyDiary" />
     </application>
 
 </manifest>

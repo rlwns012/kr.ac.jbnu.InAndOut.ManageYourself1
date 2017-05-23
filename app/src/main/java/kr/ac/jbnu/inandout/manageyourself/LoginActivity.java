@@ -65,18 +65,12 @@ public class LoginActivity extends Activity {
                     editor.putBoolean("Auto_Login_enabled", true);
                     editor.commit();
                 } else {
-//			editor.remove("ID");
-//			editor.remove("PW");
-//			editor.remove("Auto_Login_enabled");
                     editor.clear();
                     editor.commit();
                 }
             }
         });
         if (setting.getBoolean("Auto_Login_enabled", false)) {
-            //editTextid.setText(setting.getString("ID", ""));
-            //editTextpassword.setText(setting.getString("PW", ""));
-            //Auto_LogIn.setChecked(true);
             String id = setting.getString("ID", "");
             String password = setting.getString("PW", "");
             user = new User("", "", "", "");

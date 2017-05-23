@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FA8072"
+    android:background="#87CEEB"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,7 +14,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:layout_weight="1352.38"
             android:gravity="center"
             android:text="ID"
@@ -26,14 +26,13 @@
             android:id="@+id/editTextid"
             android:layout_width="227dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textColor="#ffffff"
             android:textSize="30.0sp"
             android:textStyle="bold"
             android:layout_weight="141.83" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -67,6 +66,12 @@
         android:layout_height="696dp"
         android:orientation="vertical">
 
+        <CheckBox
+            android:id="@+id/autoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자동로그인" />
+
         <Button
             android:id="@+id/btnlogin"
             android:layout_width="fill_parent"
@@ -79,7 +84,7 @@
             android:text="Log in"
             android:background="#fff"
             android:gravity="center"
-            android:textColor="#000000"
+            android:textColor="#708090"
             android:textSize="20.0sp"
             android:textStyle="bold"/>
 
@@ -94,7 +99,7 @@
             android:onClick="findIdButtonClicked"
             android:text="아이디찾기"
             android:background="#fff"
-            android:textColor="#000000"
+            android:textColor="#708090"
             android:textSize="20.0sp"
             android:textStyle="bold"/>
 
@@ -109,7 +114,7 @@
             android:onClick="findPasswordButtonClicked"
             android:text="비밀번호찾기"
             android:background="#fff"
-            android:textColor="#000000"
+            android:textColor="#708090"
             android:textSize="20.0sp"
             android:textStyle="bold"/>
 
@@ -123,17 +128,10 @@
             android:layout_marginTop="15dp"
             android:onClick="registerButtonClicked"
             android:text="회원가입"
-            android:textColor="#000000"
+            android:textColor="#708090"
             android:background="#fff"
             android:textSize="20.0sp"
             android:textStyle="bold"/>
-
-        <CheckBox
-            android:id="@+id/autoLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="자동로그인" />
-
     </LinearLayout>
 
 </LinearLayout>
