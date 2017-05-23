@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by rlwns on 2017-05-21.
@@ -105,34 +108,41 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void readDiary(String id) {
+    public ArrayList<DiaryContainer> readDiary(String id) {
+        // 모든 다이어리의 정보를 가져온다.
         database = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "'" ; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
-        Cursor cursor = database.rawQuery(selectQuery,null);    // dayCount를 사용하면 되지 않을까??
+        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        Cursor cursor = database.rawQuery(selectQuery, null);    // dayCount를 사용하면 되지 않을까??
+        ArrayList diaryList = new ArrayList();
 
         if (cursor.getCount() > 0) {
             if (cursor.moveToFirst()) {
                 do {
-                    cursor.getString(2);
 
+                    String title = cursor.getString(2);
+                    String body = cursor.getString(3);
+                    String date = cursor.getString(4);
+                    String daysQues = cursor.getString(5);
 
+                    DiaryContainer diaryContainer = new DiaryContainer(title, body, date, daysQues);
+                    diaryList.add(diaryContainer);
                 } while (cursor.moveToNext());
-
             }
         }
+        return diaryList;
     }
 
     public void updateDiary() {
-
+        // 다이어리 수정이 필요할까?
     }
 
     public void deleteDiary() {
-
+        // 다이어리 삭제도 필요한지 모르겠음
     }
 
     public void creatSWOT(String id, String SO, String ST, String WO, String WT, String oppotunity,
                           String weakness, String strength, String treat) {
-        // 새로운 SWOT분석 작성
+        // 새로운 SWOT 분석 작성
         ContentValues values = new ContentValues();
         values.put(KEY_ID, id);
         values.put(KEY_SO, SO);
@@ -147,24 +157,68 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void readSWOT() {
+    public ArrayList<SWOTContainer> readSWOT(String id) {
+        database = this.getReadableDatabase();
 
+        String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        Cursor cursor = database.rawQuery(selectQuery, null);                       // 우선 여기서는 swot의 리스트를 받기 위해 모든 것을 다 가져옴
+
+        ArrayList swotList = new ArrayList();
+
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    // SWOT의 모든 정보를 가지고 온다.
+                    int idx = cursor.getInt(0);  // swot분석의 고유 번호를 부여해서 그것에 맞는 정보를 찾아가기 위해 사용
+                    String title = cursor.getString(2);
+                    String so = cursor.getString(3);
+                    String st = cursor.getString(4);
+                    String wo = cursor.getString(5);
+                    String wt = cursor.getString(6);
+                    String strength = cursor.getString(7);
+                    String opportunity = cursor.getString(8);
+                    String treat = cursor.getString(9);
+                    String weakness = cursor.getString(10);
+
+                    SWOTContainer swotContainer = new SWOTContainer(idx, title, strength, weakness,
+                            opportunity, treat, so, st, wt, wo);
+                    swotList.add(swotContainer);
+                } while (cursor.moveToNext());
+            }
+        }
+        return swotList;
     }
 
-    public void updateSWOT() {
+    public void updateSWOT(SWOTContainer swotContainer) {
+        //SWOT 분석 수정
+        String sqlUpdate = "UPDATE " + TABLE_SWOT + " SET " + KEY_OPPORTUNITY + "='" + swotContainer.getOpportunity() + "', " +
+                KEY_SO + "='" + swotContainer.getSo() + "', " +
+                KEY_ST + "='" + swotContainer.getSt() + "', " +
+                KEY_WO + "='" + swotContainer.getWo() + "', " +
+                KEY_WT + "='" + swotContainer.getWt() + "', " +
+                KEY_TREAT + "='" + swotContainer.getTreat() + "', " +
+                KEY_TITLE + "='" + swotContainer.getTitle() + "', " +
+                KEY_STRENGTH + "='" + swotContainer.getStrength() + "', " +
+                KEY_WEAKNESS + "='" + swotContainer.getWeakness() + "', " +
+                " WHERE " + KEY_IDX + "='" + String.valueOf(swotContainer.getIdx()) + "'";
 
+        database.execSQL(sqlUpdate);
     }
 
-    public void deleteSWOT() {
+    public void deleteSWOT(int idx) {
+        //SWOT 레코드 지우기 idx값을 이용해서 찾아가 지운다.
+        String sqlDelete = "DELETE FROM " + TABLE_SWOT + " WHERE " + KEY_IDX + "='" + String.valueOf(idx) + "'";
+
+        database.execSQL(sqlDelete);
 
     }
 
     public void creatPyramid(String id, String mission, String vision, String tactic,
                              String actionplan, String actiontask) {
-
+        // 첫 파리미드 생성
         ContentValues values = new ContentValues();
         values.put(KEY_ID, id);
-        values.put(KEY_MISSION,mission);
+        values.put(KEY_MISSION, mission);
         values.put(KEY_VISION, vision);
         values.put(KEY_TACTIC, tactic);
         values.put(KEY_ACTIONPLAN, actionplan);
@@ -173,11 +227,41 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void readPyramid() {
+    public PyramidContainer readPyramid(String id) {
+        // 피라미드의 정보를 가져온다.
+        database = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_PYRAMID + " where id='" + id + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        Cursor cursor = database.rawQuery(selectQuery, null);    // dayCount를 사용하면 되지 않을까??
+        PyramidContainer pyramidContainer = new PyramidContainer();
+
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+
+                    String mission = cursor.getString(2);
+                    String vision = cursor.getString(3);
+                    String tactic = cursor.getString(4);
+                    String actionTask = cursor.getString(5);
+                    String actionPlan = cursor.getString(6);
+
+                    pyramidContainer = new PyramidContainer(mission, vision, tactic, actionTask, actionPlan);
+                } while (cursor.moveToNext());
+            }
+        }
+        return pyramidContainer;
 
     }
 
-    public void updatePyramid() {
+    public void updatePyramid(PyramidContainer pyramidContainer , String id) {
+        //피라미드의 내용 수정
+        String sqlUpdate = "UPDATE " + TABLE_PYRAMID + " SET " + KEY_VISION+ "='" + pyramidContainer.getVision() + "', " +
+                KEY_ACTIONPLAN + "='" + pyramidContainer.getActionPlan() + "', " +
+                KEY_ACTIONTASK + "='" + pyramidContainer.getActionTask()+ "', " +
+                KEY_MISSION + "='" + pyramidContainer.getMission()+ "', " +
+                KEY_TACTIC+ "='" + pyramidContainer.getTactic()+ "', " +
+                " WHERE " + KEY_ID + "='" + id + "'";
+
+        database.execSQL(sqlUpdate);
 
     }
 

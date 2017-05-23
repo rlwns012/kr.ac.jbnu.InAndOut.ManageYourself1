@@ -21,7 +21,6 @@ public class LoginActivity extends Activity {
     private EditText editTextpassword, editTextid;
     SoundPool soundPool;
     int sound;
-    private SharedPreferences checkMonth;
     private CheckBox Auto_LogIn;
     private SharedPreferences setting;
     private SharedPreferences.Editor editor;
@@ -44,7 +43,6 @@ public class LoginActivity extends Activity {
 
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         sound = soundPool.load(this, R.raw.button, 1);
-        checkMonth = getSharedPreferences("checkMonth", Activity.MODE_PRIVATE);
         udbHelper = new UserDBOpenHelper(this);
 
         Auto_LogIn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,8 +94,7 @@ public class LoginActivity extends Activity {
 
         if (udbHelper.checkUser(id, password, user)) {
 
-            boolean checkInit = checkMonth.getBoolean(user.getId(), false);
-            if (checkInit) {
+            if (user.getDayCount()<=0) {
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);

@@ -16,7 +16,6 @@ import android.widget.Toast;
 public class SettingMonthActivity extends Activity {
 
     private User user;
-    private SharedPreferences checkMonth;
     private EditText days;
 
     @Override
@@ -28,11 +27,6 @@ public class SettingMonthActivity extends Activity {
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
-
-        checkMonth = getSharedPreferences("checkMonth", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = checkMonth.edit();
-        editor.putBoolean(user.getId(), true);
-        editor.commit();
 
     }
 
