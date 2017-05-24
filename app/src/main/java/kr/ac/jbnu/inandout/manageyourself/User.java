@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String name;
     private String birth;
     private int dayCount;
+    private int maxDay;
 
 
     public User(String id, String password, String name, String birth) {
@@ -21,6 +22,7 @@ public class User implements Serializable {
         this.name = name;
         this.birth = birth;
         this.dayCount = 0;
+        this.maxDay = 0;
     }
 
     public String getPassword() {
@@ -61,5 +63,13 @@ public class User implements Serializable {
 
     public void setDayCount(int dayCount) {
         this.dayCount = dayCount;
+    }
+
+    public int getMaxDay() {
+        return maxDay;
+    }
+
+    public void setMaxDay(int maxDay) {
+        this.maxDay = maxDay;
     }
 }

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/dayText"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginLeft="40dp"
@@ -17,7 +17,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/questionText"
         android:layout_width="match_parent"
         android:layout_height="40.0sp"
         android:layout_gravity="center"
@@ -31,7 +31,15 @@
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/titleET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="제목을 입력해주세요" />
+
+    <EditText
+        android:id="@+id/bodyET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20.0sp"
@@ -41,7 +49,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/diarySaveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -51,6 +59,21 @@
         android:textSize="25.0sp"
         android:textStyle="bold"
         android:background="#FDF5E6"
-        android:text="저장" />
+        android:text="저장"
+        android:onClick="saveDiary"/>
+
+    <Button
+        android:id="@+id/closeDiarybtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#000000"
+        android:textSize="25.0sp"
+        android:textStyle="bold"
+        android:background="#FDF5E6"
+        android:onClick="closeDiary"
+        android:text="나가기" />
 
 </LinearLayout>

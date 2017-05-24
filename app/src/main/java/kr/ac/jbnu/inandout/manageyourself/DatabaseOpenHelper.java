@@ -264,5 +264,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         database.execSQL(sqlUpdate);
 
     }
+    public void deletePyramid(String id){
+
+        String sqlDelete = "DELETE FROM " + TABLE_PYRAMID+ " WHERE " + KEY_ID + "='" + id + "'";
+        database.execSQL(sqlDelete);
+    }
 
 }

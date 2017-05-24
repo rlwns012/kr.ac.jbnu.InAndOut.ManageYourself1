@@ -11,9 +11,10 @@ public class PyramidContainer {
     private String actionPlan;
     private String actionTask;
 
-    public PyramidContainer(){}
+    public PyramidContainer() {
+    }
 
-    public PyramidContainer(String mission,String vision,String tactic,String actionPlan,String actionTask){
+    public PyramidContainer(String mission, String vision, String tactic, String actionTask, String actionPlan) {
 
         this.mission = mission;
         this.vision = vision;

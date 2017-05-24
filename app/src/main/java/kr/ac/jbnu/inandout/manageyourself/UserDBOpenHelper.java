@@ -26,7 +26,8 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_BIRTH = "birth";
     private static final String KEY_NAME = "name";
-    private static final String KEY_DAYCOUNT = "playcount";
+    private static final String KEY_DAYCOUNT = "daycount";
+    private static final String KEY_MAXDAY = "maxday";
 
     private SQLiteDatabase database;
 
@@ -40,7 +41,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + " ( "
                 + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
                 + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_NAME + " TEXT, " + KEY_BIRTH + " TEXT, "
-                + KEY_DAYCOUNT + " INT)";
+                + KEY_DAYCOUNT + " INT" + KEY_MAXDAY + " INT)";
 
         db.execSQL(sql);
     }
@@ -64,6 +65,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_BIRTH, user.getbirth());
         values.put(KEY_NAME, user.getName());
         values.put(KEY_DAYCOUNT, user.getDayCount());
+        values.put(KEY_MAXDAY, user.getMaxDay());
         database.insert(TABLE_USER, null, values);
 
     }
@@ -88,10 +90,10 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public void updateUser(String id, int dayCount) {
+    public void updateUser(String id, int maxDay) {
 
-        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_DAYCOUNT + "='"
-                + Integer.toString(dayCount) + "' WHERE id='" + id + "'";
+        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_MAXDAY + "='"
+                + Integer.toString(maxDay) + "' WHERE id='" + id + "'";
         database = this.getWritableDatabase();
         database.execSQL(selectQuery);
     }

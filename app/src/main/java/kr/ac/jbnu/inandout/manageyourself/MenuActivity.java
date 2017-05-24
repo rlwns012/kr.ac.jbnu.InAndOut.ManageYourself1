@@ -34,7 +34,7 @@ public class MenuActivity extends Activity {
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
 
-        // 난이도 EASY
+
         swotbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +50,6 @@ public class MenuActivity extends Activity {
             }
         });
 
-        // 난이도 NORMAL
         diarybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +63,6 @@ public class MenuActivity extends Activity {
             }
         });
 
-        // 난이도 HARD
         pyramidbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
