@@ -62,8 +62,6 @@ public class PyramidActivity extends Activity {
     }
 
     public void closePyramid(View view) {
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
+        finish();
     }
 }

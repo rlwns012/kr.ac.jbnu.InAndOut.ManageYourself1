@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 public class MyDiary extends Activity {
 
-    private TextView day, question;
-    private EditText title, body;
+    private TextView dayTV, questionTV;
+    private EditText titleET, bodyET;
     private User user;
     private DatabaseOpenHelper dbHelper;
+    private UserDBOpenHelper udbHelper;
+    private String question;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,30 +27,40 @@ public class MyDiary extends Activity {
         setContentView(R.layout.activity_mydiary);
 
         dbHelper = new DatabaseOpenHelper(this);
+        udbHelper = new UserDBOpenHelper(this);
 
-        day = (TextView)findViewById(R.id.dayText);
-        question = (TextView)findViewById(R.id.questionText);
-        title = (EditText)findViewById(R.id.titleET);
-        body = (EditText)findViewById(R.id.bodyET);
+        dayTV = (TextView) findViewById(R.id.dayText);
+        questionTV = (TextView) findViewById(R.id.questionText);
+        titleET = (EditText) findViewById(R.id.titleET);
+        bodyET = (EditText) findViewById(R.id.bodyET);
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
 
         String daySetting = "Day " + String.valueOf(user.getDayCount());
-        day.setText(daySetting);
+        dayTV.setText(daySetting);
 
-        question.setText(dbHelper.readQuestion().toString()); //질문 디비가 있으며 질문 디비에서 매번 다른 질문을 꺼내와 세팅한다.
-        day.setText(daySetting);
+        user.getMaxDay();
+        question = dbHelper.readQuestion().toString();
 
+        questionTV.setText(question); //질문 디비가 있으며 질문 디비에서 매번 다른 질문을 꺼내와 세팅한다.
 
 
     }
 
     public void saveDiary(View view) {
+        String title = titleET.getText().toString();
+        String body = bodyET.getText().toString();
 
+        dbHelper.creatDiary(user.getId(), title, question, body,
+                "", user.getDayCount()); //date는 추후에 추가
+
+        udbHelper.updateUserDay(user.getId(), user.getDayCount());
+        int nextDay = user.getDayCount() + 1;
+        user.setDayCount(nextDay);
     }
 
     public void closeDiary(View view) {
-
+        finish();
     }
 }

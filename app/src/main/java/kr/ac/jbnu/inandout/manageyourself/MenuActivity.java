@@ -34,7 +34,6 @@ public class MenuActivity extends Activity {
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
 
-
         swotbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,8 +44,6 @@ public class MenuActivity extends Activity {
                 intent.putExtras(b);
                 intent.putExtra("user", user);
                 startActivity(intent);
-                finish();
-
             }
         });
 
@@ -54,12 +51,9 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
-
                 Intent intent = new Intent(MenuActivity.this, MyDiary.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
-                finish();
-
             }
         });
 
@@ -67,12 +61,9 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
-
                 Intent intent = new Intent(MenuActivity.this, PyramidActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
-                finish();
-
             }
         });
     }

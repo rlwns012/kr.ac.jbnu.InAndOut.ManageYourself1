@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import java.util.ArrayList;
 
 /**
@@ -88,11 +89,20 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public void updateUser(String id, int maxDay) {
-
-        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_MAXDAY + "='"
-                + Integer.toString(maxDay) + "' WHERE id='" + id + "'";
+    public void updateUserMax(String id, int maxDay) {
         database = this.getWritableDatabase();
+        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_MAXDAY + " = '"
+                + String.valueOf(maxDay) + "' where id= '" + id + "'";
+
+        database.execSQL(selectQuery);
+    }
+
+    public void updateUserDay(String id, int dayCount) {
+        database = this.getWritableDatabase();
+        dayCount++;
+        String selectQuery = "UPDATE " + TABLE_USER + " SET " + KEY_DAYCOUNT + " = '"
+                + String.valueOf(dayCount) + "' where id= '" + id + "'";
+
         database.execSQL(selectQuery);
     }
 
@@ -112,6 +122,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
                     user.setName(cursor.getString(3));
                     user.setbirth(cursor.getString(4));
                     user.setDayCount(cursor.getInt(5));
+                    user.setMaxDay(cursor.getInt(6));
                     return true;
                 } else {
                     return false;

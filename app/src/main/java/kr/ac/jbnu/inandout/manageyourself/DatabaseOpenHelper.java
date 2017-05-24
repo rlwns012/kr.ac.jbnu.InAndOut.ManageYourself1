@@ -35,6 +35,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_BODY = "body";
     private static final String KEY_DATE = "date";
     private static final String KEY_DAYQUES = "dayques";
+    private static final String KEY_DAYCOUNT = "daycount";
 
     //swot Columns
     private static final String KEY_STRENGTH = "strength";
@@ -67,7 +68,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         String diarysql = "CREATE TABLE IF NOT EXISTS " + TABLE_DIARY + " ( "
                 + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
                 + " TEXT, " + KEY_TITLE + " TEXT, " + KEY_BODY + " TEXT, " + KEY_DATE + " TEXT, "
-                + KEY_DAYQUES + " TEXT)";
+                + KEY_DAYCOUNT + " INT, " + KEY_DAYQUES + " TEXT)";
 
         database.execSQL(diarysql);
 
@@ -80,7 +81,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         database.execSQL(swotsql);
 
         String pyramidsql = "CREATE TABLE IF NOT EXISTS " + TABLE_PYRAMID + " ( "
-                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_QUESTION
+                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
                 + " TEXT, " + KEY_MISSION + " TEXT, " + KEY_VISION + " TEXT, " + KEY_TACTIC + " TEXT, "
                 + KEY_ACTIONTASK + " TEXT, " + KEY_ACTIONPLAN + " TEXT)";
 
@@ -108,7 +109,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void creatDiary(String id, String title, String question, String body, String date) {
+    public void creatDiary(String id, String title, String question, String body, String date, int dayCount) {
         //새로운 다이어리 작성
         ContentValues values = new ContentValues();
         values.put(KEY_ID, id);
@@ -116,7 +117,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_BODY, body);
         values.put(KEY_DATE, date);
         values.put(KEY_DAYQUES, question);
+        values.put(KEY_DAYCOUNT, dayCount);
         database.insert(TABLE_DIARY, null, values);
+
 
     }
 
@@ -134,14 +137,43 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     String title = cursor.getString(2);
                     String body = cursor.getString(3);
                     String date = cursor.getString(4);
-                    String daysQues = cursor.getString(5);
+                    int dayCount = cursor.getInt(5);
+                    String daysQues = cursor.getString(6);
 
-                    DiaryContainer diaryContainer = new DiaryContainer(title, body, date, daysQues);
+                    DiaryContainer diaryContainer = new DiaryContainer(title, body, date, daysQues,dayCount);
                     diaryList.add(diaryContainer);
                 } while (cursor.moveToNext());
             }
         }
         return diaryList;
+    }
+
+    public DiaryContainer readDiary(String id, int dayCount) {
+        DiaryContainer diaryContainer = new DiaryContainer("","","","",1);
+        database = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "', " + KEY_DAYCOUNT + " = '" + String.valueOf(dayCount) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        Cursor cursor = database.rawQuery(selectQuery, null);    // dayCount를 사용하면 되지 않을까??
+
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+
+                    String title = cursor.getString(2);
+                    String body = cursor.getString(3);
+                    String date = cursor.getString(4);
+                    int dayCount1 = cursor.getInt(5);
+                    String daysQues = cursor.getString(6);
+
+                    diaryContainer.setBody(body);
+                    diaryContainer.setTitle(title);
+                    diaryContainer.setDate(date);
+                    diaryContainer.setDayCount(dayCount1);
+                    diaryContainer.setDayQues(daysQues);
+
+                } while (cursor.moveToNext());
+            }
+        }
+        return diaryContainer;
     }
 
     public void updateDiary() {
@@ -314,7 +346,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         database = this.getReadableDatabase();
         Random rand = new Random();
         int idx = rand.nextInt(10);
-        String selectQuery = "SELECT * FROM " + TABLE_QUESTION + " where "+ KEY_IDX +"='" + idx + "'";
+        String selectQuery = "SELECT * FROM " + TABLE_QUESTION + " where " + KEY_IDX + "='" + idx + "'";
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         if (cursor.getCount() > 0) {

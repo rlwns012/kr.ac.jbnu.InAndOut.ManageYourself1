@@ -9,12 +9,14 @@ public class DiaryContainer {
     private String body;
     private String date;
     private String dayQues;
+    private int dayCount;
 
-    public DiaryContainer(String title, String body, String date, String dayQues){
+    public DiaryContainer(String title, String body, String date, String dayQues,int dayCount){
         this.title = title;
         this.body = body;
         this.date = date;
         this.dayQues = dayQues;
+        this.dayCount = dayCount;
     }
 
     public String getTitle() {
@@ -47,5 +49,13 @@ public class DiaryContainer {
 
     public void setDayQues(String dayQues) {
         this.dayQues = dayQues;
+    }
+
+    public int getDayCount() {
+        return dayCount;
+    }
+
+    public void setDayCount(int dayCount) {
+        this.dayCount = dayCount;
     }
 }
