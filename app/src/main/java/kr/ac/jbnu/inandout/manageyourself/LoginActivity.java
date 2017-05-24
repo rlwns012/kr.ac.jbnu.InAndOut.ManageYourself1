@@ -94,7 +94,7 @@ public class LoginActivity extends Activity {
 
         if (udbHelper.checkUser(id, password, user)) {
 
-            if (user.getDayCount()<=0) {
+            if (user.getMaxDay()>0) {
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);

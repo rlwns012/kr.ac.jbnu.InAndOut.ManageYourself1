@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by rlwns on 2017-05-21.
@@ -23,9 +24,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_DIARY = "diary";
     private static final String TABLE_SWOT = "swot";
     private static final String TABLE_PYRAMID = "pyramid";
+    private static final String TABLE_QUESTION = "question";
 
     // tasks Table Columns names
-    private static final String KEY_IDX = "IDX";
+    private static final String KEY_IDX = "idx";
     private static final String KEY_ID = "id";
 
     //diary Columns
@@ -34,7 +36,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_DATE = "date";
     private static final String KEY_DAYQUES = "dayques";
 
-    //sowt Columns
+    //swot Columns
     private static final String KEY_STRENGTH = "strength";
     private static final String KEY_OPPORTUNITY = "opportunity";
     private static final String KEY_WEAKNESS = "weakness";
@@ -50,6 +52,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_TACTIC = "tactic";
     private static final String KEY_ACTIONTASK = "actiontask";
     private static final String KEY_ACTIONPLAN = "actionplan";
+
+    private static final String KEY_QUESTION = "question";
 
     private SQLiteDatabase database;
 
@@ -76,11 +80,19 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         database.execSQL(swotsql);
 
         String pyramidsql = "CREATE TABLE IF NOT EXISTS " + TABLE_PYRAMID + " ( "
-                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
+                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_QUESTION
                 + " TEXT, " + KEY_MISSION + " TEXT, " + KEY_VISION + " TEXT, " + KEY_TACTIC + " TEXT, "
                 + KEY_ACTIONTASK + " TEXT, " + KEY_ACTIONPLAN + " TEXT)";
 
         database.execSQL(pyramidsql);
+
+        String questionsql = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTION + " ( "
+                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_QUESTION + " TEXT)";
+
+        database.execSQL(questionsql);
+
+        addQuestion();
+
 
     }
 
@@ -154,7 +166,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_TREAT, treat);
         values.put(KEY_WEAKNESS, weakness);
         database.insert(TABLE_SWOT, null, values);
-
     }
 
     public ArrayList<SWOTContainer> readSWOT(String id) {
@@ -252,22 +263,69 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void updatePyramid(PyramidContainer pyramidContainer , String id) {
+    public void updatePyramid(PyramidContainer pyramidContainer, String id) {
         //피라미드의 내용 수정
-        String sqlUpdate = "UPDATE " + TABLE_PYRAMID + " SET " + KEY_VISION+ "='" + pyramidContainer.getVision() + "', " +
+        String sqlUpdate = "UPDATE " + TABLE_PYRAMID + " SET " + KEY_VISION + "='" + pyramidContainer.getVision() + "', " +
                 KEY_ACTIONPLAN + "='" + pyramidContainer.getActionPlan() + "', " +
-                KEY_ACTIONTASK + "='" + pyramidContainer.getActionTask()+ "', " +
-                KEY_MISSION + "='" + pyramidContainer.getMission()+ "', " +
-                KEY_TACTIC+ "='" + pyramidContainer.getTactic()+ "', " +
+                KEY_ACTIONTASK + "='" + pyramidContainer.getActionTask() + "', " +
+                KEY_MISSION + "='" + pyramidContainer.getMission() + "', " +
+                KEY_TACTIC + "='" + pyramidContainer.getTactic() + "', " +
                 " WHERE " + KEY_ID + "='" + id + "'";
 
         database.execSQL(sqlUpdate);
 
     }
-    public void deletePyramid(String id){
 
-        String sqlDelete = "DELETE FROM " + TABLE_PYRAMID+ " WHERE " + KEY_ID + "='" + id + "'";
+    public void deletePyramid(String id) {
+        String sqlDelete = "DELETE FROM " + TABLE_PYRAMID + " WHERE " + KEY_ID + "='" + id + "'";
         database.execSQL(sqlDelete);
+    }
+
+    public void addQuestion(String question) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUESTION, question);
+        database.insert(TABLE_QUESTION, null, values);
+    }
+
+    public void addQuestion() {
+        String q1 = "오늘 날씨는 어때요?";
+        addQuestion(q1);
+        String q2 = "오늘 하루 어떠셨나요?";
+        addQuestion(q2);
+        String q3 = "기분 좋은 하루였나요?";
+        addQuestion(q3);
+        String q4 = "즐거웠던 일을 적어보아요!";
+        addQuestion(q4);
+        String q5 = "술이 생각나는 하루네요.";
+        addQuestion(q5);
+        String q6 = "오늘 하루 힘들지는 안으셨어요?";
+        addQuestion(q6);
+        String q7 = "지친 하루 다이어리에 털어놔 봐요";
+        addQuestion(q7);
+        String q8 = "우리 오늘 어땠는지 생각해봐요!";
+        addQuestion(q8);
+        String q9 = "재미있는 일 있으셨나요?";
+        addQuestion(q9);
+        String q10 = "즐거웠던 일 하나만 저랑 얘기해봐요!";
+        addQuestion(q10);
+    }
+
+    public String readQuestion() {
+        database = this.getReadableDatabase();
+        Random rand = new Random();
+        int idx = rand.nextInt(10);
+        String selectQuery = "SELECT * FROM " + TABLE_QUESTION + " where "+ KEY_IDX +"='" + idx + "'";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String question = cursor.getString(1).toString();
+                    return question;
+                } while (cursor.moveToNext());
+            }
+        }
+        return null;
     }
 
 }

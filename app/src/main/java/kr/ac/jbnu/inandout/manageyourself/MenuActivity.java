@@ -55,7 +55,7 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
 
-                Intent intent = new Intent(MenuActivity.this, MyDiaryListActivity.class);
+                Intent intent = new Intent(MenuActivity.this, MyDiary.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
                 finish();

@@ -17,11 +17,14 @@ public class MyDiary extends Activity {
     private TextView day, question;
     private EditText title, body;
     private User user;
+    private DatabaseOpenHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mydiary);
+
+        dbHelper = new DatabaseOpenHelper(this);
 
         day = (TextView)findViewById(R.id.dayText);
         question = (TextView)findViewById(R.id.questionText);
@@ -34,8 +37,8 @@ public class MyDiary extends Activity {
         String daySetting = "Day " + String.valueOf(user.getDayCount());
         day.setText(daySetting);
 
-        //question.setText(); //질문 디비가 있으며 질문 디비에서 매번 다른 질문을 꺼내와 세팅한다.
-
+        question.setText(dbHelper.readQuestion().toString()); //질문 디비가 있으며 질문 디비에서 매번 다른 질문을 꺼내와 세팅한다.
+        day.setText(daySetting);
 
 
 

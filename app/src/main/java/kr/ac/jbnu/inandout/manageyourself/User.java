@@ -21,7 +21,7 @@ public class User implements Serializable {
         this.password = password;
         this.name = name;
         this.birth = birth;
-        this.dayCount = 0;
+        this.dayCount = 1;
         this.maxDay = 0;
     }
 

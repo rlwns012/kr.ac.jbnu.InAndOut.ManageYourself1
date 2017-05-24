@@ -38,7 +38,7 @@ public class SettingMonthActivity extends Activity {
             Toast.makeText(SettingMonthActivity.this, "설정할 수 있는 기간은 최소 30일 최대 1865일 입니다.", Toast.LENGTH_SHORT).show();
         }else{
             Intent intent = new Intent(this, MenuActivity.class);
-            user.setDayCount(dayint);
+            user.setMaxDay(dayint);
             intent.putExtra("user", user);
             startActivity(intent);
             finish();

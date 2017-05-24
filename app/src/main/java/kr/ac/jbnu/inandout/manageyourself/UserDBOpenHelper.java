@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by rlwns on 2017-04-05.
@@ -41,7 +39,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + " ( "
                 + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
                 + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_NAME + " TEXT, " + KEY_BIRTH + " TEXT, "
-                + KEY_DAYCOUNT + " INT" + KEY_MAXDAY + " INT)";
+                + KEY_DAYCOUNT + " INT," + KEY_MAXDAY + " INT)";
 
         db.execSQL(sql);
     }
