@@ -31,10 +31,10 @@
             android:layout_marginTop="25dp"
             android:background="#FDF5E6"
             android:gravity="center"
+            android:text="daily"
             android:textColor="#708090"
             android:textSize="20.0sp"
-            android:textStyle="bold"
-            android:text="daily" />
+            android:textStyle="bold" />
 
 
         <Button
@@ -47,10 +47,10 @@
             android:layout_marginTop="25dp"
             android:background="#FDF5E6"
             android:gravity="center"
+            android:text="진로 상담"
             android:textColor="#708090"
             android:textSize="20.0sp"
-            android:textStyle="bold"
-            android:text="진로 상담" />
+            android:textStyle="bold" />
     </GridLayout>
 
     <GridLayout
@@ -67,10 +67,11 @@
             android:layout_marginTop="20dp"
             android:background="#FDF5E6"
             android:gravity="center"
+            android:onClick="swotbuttonClicked"
+            android:text="SWOT 분석"
             android:textColor="#708090"
             android:textSize="20.0sp"
-            android:textStyle="bold"
-            android:text="SWOT 분석" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/pyramidbtn"
@@ -82,10 +83,10 @@
             android:layout_marginTop="20dp"
             android:background="#FDF5E6"
             android:gravity="center"
+            android:text="경영피라미드"
             android:textColor="#708090"
             android:textSize="20.0sp"
-            android:textStyle="bold"
-            android:text="경영피라미드" />
+            android:textStyle="bold" />
 
     </GridLayout>
 </LinearLayout>

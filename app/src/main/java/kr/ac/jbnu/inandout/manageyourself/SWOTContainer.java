@@ -10,20 +10,20 @@ public class SWOTContainer {
     private String strength;
     private String weakness;
     private String opportunity;
-    private String treat;
+    private String threat;
     private String so;
     private String st;
     private String wo;
     private String wt;
 
-    public SWOTContainer(int idx, String title, String strength, String weakness, String opportunity, String treat,
+    public SWOTContainer(int idx, String title, String strength, String weakness, String opportunity, String threat,
                          String so, String st, String wt, String wo) {
         this.idx = idx;
         this.title = title;
         this.strength = strength;
         this.weakness = weakness;
         this.opportunity = opportunity;
-        this.treat = treat;
+        this.threat = threat;
         this.so = so;
         this.st = st;
         this.wt = wt;
@@ -54,12 +54,12 @@ public class SWOTContainer {
         this.weakness = weakness;
     }
 
-    public String getTreat() {
-        return treat;
+    public String getThreat() {
+        return threat;
     }
 
     public void setTreat(String treat) {
-        this.treat = treat;
+        this.threat = treat;
     }
 
     public String getOpportunity() {

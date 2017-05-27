@@ -9,7 +9,7 @@
         android:id="@+id/textView17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="피라미드란?" />
+        android:text="Mission" />
 
     <EditText
         android:id="@+id/missionET"
@@ -19,6 +19,12 @@
         android:inputType="textPersonName"
         android:hint="자신의 미션을 입력해주세요" />
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vision" />
+
     <EditText
         android:id="@+id/visionET"
         android:layout_width="match_parent"
@@ -26,6 +32,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="자신의 비전을 입력해주세요" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tactic" />
 
     <EditText
         android:id="@+id/tacticET"
@@ -35,6 +47,12 @@
         android:inputType="textPersonName"
         android:hint="자신의 전략을 입력해주세요"/>
 
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ActionPlan" />
+
     <EditText
         android:id="@+id/actionPlanET"
         android:layout_width="match_parent"
@@ -42,6 +60,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="자신의 실천 계획을 입력해주세요" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ActionTask" />
 
     <EditText
         android:id="@+id/actionTaskET"
@@ -56,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="savePyramid"
-        android:text="저장" />
+        android:text="수정/저장" />
 
     <Button
         android:id="@+id/button9"

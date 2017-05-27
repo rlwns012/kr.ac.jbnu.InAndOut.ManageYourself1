@@ -7,23 +7,67 @@
         android:id="@+id/dayCountTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#708090"
+        android:textSize="50.0sp"
+        android:layout_marginTop = "30.0sp"
+        android:layout_marginLeft="10.0sp"
+        android:layout_marginRight="10.0sp"
+        android:textStyle="bold"
         android:text="몇일째 인지" />
+
 
     <TextView
         android:id="@+id/dateTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#708090"
+        android:layout_marginLeft="10.0sp"
+        android:layout_marginRight="10.0sp"
+        android:textSize="30.0sp"
+        android:textStyle="bold"
         android:text="날짜" />
 
     <TextView
         android:id="@+id/titleTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#708090"
+        android:textSize="35.0sp"
+        android:layout_marginLeft="10.0sp"
+        android:layout_marginRight="10.0sp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:text="제목" />
 
     <TextView
         android:id="@+id/bodyTV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:textSize="20.0sp"
+        android:layout_marginLeft="10.0sp"
+        android:layout_marginRight="10.0sp"
         android:text="본문" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backToListBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="backToList"
+            android:text="목록" />
+
+        <Button
+            android:id="@+id/closeWrittenDiaryBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="closeWrittenDiary"
+            android:text="나가기" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -3,4 +3,94 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/SWOTtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="제목" />
+
+    <TextView
+        android:id="@+id/strengthTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Strength" />
+
+    <EditText
+        android:id="@+id/strengthET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/weaknessTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weakness" />
+
+    <EditText
+        android:id="@+id/weaknessET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/opportunityTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Opportunity" />
+
+    <EditText
+        android:id="@+id/opportunityET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/threatTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Threat" />
+
+    <EditText
+        android:id="@+id/threatET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backToSWOTListBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="backToSWOTList"
+            android:text="목록" />
+
+        <Button
+            android:id="@+id/closeSWOT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="closeSWOT"
+            android:text="나가기" />
+
+        <Button
+            android:id="@+id/SWOTSaveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="svaeSWOT"
+            android:text="저장" />
+    </LinearLayout>
+
 </LinearLayout>

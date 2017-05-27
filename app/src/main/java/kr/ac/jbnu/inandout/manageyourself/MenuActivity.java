@@ -38,8 +38,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
-
-                Intent intent = new Intent(MenuActivity.this, SWOTListActivity.class);
+                Intent intent = new Intent(MenuActivity.this, SWOTActivity.class);
                 Bundle b = new Bundle();
                 intent.putExtras(b);
                 intent.putExtra("user", user);

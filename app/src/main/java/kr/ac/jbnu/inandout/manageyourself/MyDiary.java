@@ -1,5 +1,6 @@
 package kr.ac.jbnu.inandout.manageyourself;
 
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,6 +59,18 @@ public class MyDiary extends Activity {
         udbHelper.updateUserDay(user.getId(), user.getDayCount());
         int nextDay = user.getDayCount() + 1;
         user.setDayCount(nextDay);
+
+        Intent intent = new Intent(this, MyDiaryListActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
+    }
+
+    public void diarylistbuttonClicked(View view) {
+        Intent intent = new Intent(this, MyDiaryListActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
 
     public void closeDiary(View view) {

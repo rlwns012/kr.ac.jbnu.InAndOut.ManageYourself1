@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -30,10 +31,20 @@ public class MyWrittenDiary extends Activity {
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
 
-        DiaryContainer diaryContainer = dbHelper.readDiary(user.getId(),user.getDayCount());
+        DiaryContainer diaryContainer = dbHelper.readDiary(user.getId(),10); // dayCount를 가져와서 입력해야함.
         titleTV.setText(diaryContainer.getTitle().toString());
         bodyTV.setText(diaryContainer.getBody().toString());
         dayCountTV.setText(String.valueOf(diaryContainer.getDayCount()));
-        //dateTV.setText(diaryContainer.getDate().toString());
+        dateTV.setText(diaryContainer.getDate().toString());
+    }
+
+    public void backToList(View view){
+        Intent intent = new Intent(this, MyDiaryListActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
+    }
+    public void closeWrittenDiary(){
+        finish();
     }
 }

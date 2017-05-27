@@ -41,7 +41,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_STRENGTH = "strength";
     private static final String KEY_OPPORTUNITY = "opportunity";
     private static final String KEY_WEAKNESS = "weakness";
-    private static final String KEY_TREAT = "treat";
+    private static final String KEY_THREAT = "threat";
     private static final String KEY_SO = "so";
     private static final String KEY_ST = "st";
     private static final String KEY_WO = "wo";
@@ -76,7 +76,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
                 + " TEXT, " + KEY_TITLE + " TEXT, " + KEY_SO + " TEXT, " + KEY_ST + " TEXT, "
                 + KEY_WO + " TEXT, " + KEY_WT + " TEXT, " + KEY_STRENGTH + " TEXT, " + KEY_OPPORTUNITY
-                + " TEXT, " + KEY_WEAKNESS + " TEXT, " + KEY_TREAT + " TEXT)";
+                + " TEXT, " + KEY_WEAKNESS + " TEXT, " + KEY_THREAT + " TEXT)";
 
         database.execSQL(swotsql);
 
@@ -140,7 +140,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     int dayCount = cursor.getInt(5);
                     String daysQues = cursor.getString(6);
 
-                    DiaryContainer diaryContainer = new DiaryContainer(title, body, date, daysQues,dayCount);
+                    DiaryContainer diaryContainer = new DiaryContainer(title, body, date, daysQues, dayCount);
                     diaryList.add(diaryContainer);
                 } while (cursor.moveToNext());
             }
@@ -149,7 +149,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     }
 
     public DiaryContainer readDiary(String id, int dayCount) {
-        DiaryContainer diaryContainer = new DiaryContainer("","","","",1);
+        DiaryContainer diaryContainer = new DiaryContainer("", "", "", "", 1);
         database = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "', " + KEY_DAYCOUNT + " = '" + String.valueOf(dayCount) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
         Cursor cursor = database.rawQuery(selectQuery, null);    // dayCount를 사용하면 되지 않을까??
@@ -176,13 +176,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return diaryContainer;
     }
 
-    public void updateDiary() {
-        // 다이어리 수정이 필요할까?
-    }
-
-    public void deleteDiary() {
-        // 다이어리 삭제도 필요한지 모르겠음
-    }
 
     public void creatSWOT(String id, String SO, String ST, String WO, String WT, String oppotunity,
                           String weakness, String strength, String treat) {
@@ -195,15 +188,16 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_WT, WT);
         values.put(KEY_STRENGTH, strength);
         values.put(KEY_OPPORTUNITY, oppotunity);
-        values.put(KEY_TREAT, treat);
+        values.put(KEY_THREAT, treat);
         values.put(KEY_WEAKNESS, weakness);
         database.insert(TABLE_SWOT, null, values);
     }
 
-    public ArrayList<SWOTContainer> readSWOT(String id) {
+    public ArrayList<SWOTContainer> readSWOT(String id, int idx) {
         database = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "', "
+                + KEY_IDX + "='" + String.valueOf(idx) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
         Cursor cursor = database.rawQuery(selectQuery, null);                       // 우선 여기서는 swot의 리스트를 받기 위해 모든 것을 다 가져옴
 
         ArrayList swotList = new ArrayList();
@@ -212,7 +206,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     // SWOT의 모든 정보를 가지고 온다.
-                    int idx = cursor.getInt(0);  // swot분석의 고유 번호를 부여해서 그것에 맞는 정보를 찾아가기 위해 사용
                     String title = cursor.getString(2);
                     String so = cursor.getString(3);
                     String st = cursor.getString(4);
@@ -220,11 +213,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     String wt = cursor.getString(6);
                     String strength = cursor.getString(7);
                     String opportunity = cursor.getString(8);
-                    String treat = cursor.getString(9);
+                    String threat = cursor.getString(9);
                     String weakness = cursor.getString(10);
 
                     SWOTContainer swotContainer = new SWOTContainer(idx, title, strength, weakness,
-                            opportunity, treat, so, st, wt, wo);
+                            opportunity, threat, so, st, wt, wo);
                     swotList.add(swotContainer);
                 } while (cursor.moveToNext());
             }
@@ -239,7 +232,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 KEY_ST + "='" + swotContainer.getSt() + "', " +
                 KEY_WO + "='" + swotContainer.getWo() + "', " +
                 KEY_WT + "='" + swotContainer.getWt() + "', " +
-                KEY_TREAT + "='" + swotContainer.getTreat() + "', " +
+                KEY_THREAT + "='" + swotContainer.getThreat() + "', " +
                 KEY_TITLE + "='" + swotContainer.getTitle() + "', " +
                 KEY_STRENGTH + "='" + swotContainer.getStrength() + "', " +
                 KEY_WEAKNESS + "='" + swotContainer.getWeakness() + "', " +
