@@ -29,10 +29,11 @@ public class MyWrittenDiary extends Activity {
 
         dbHelper = new DatabaseOpenHelper(this);
         Intent intent = getIntent();
+        int dayCount = intent.getIntExtra("dayCount",0);
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
 
-        DiaryContainer diaryContainer = dbHelper.readDiary(user.getId(),10); // dayCount를 가져와서 입력해야함.
-        titleTV.setText(diaryContainer.getTitle().toString());
+        DiaryContainer diaryContainer = dbHelper.readDiary(user.getId(),dayCount); // dayCount를 가져와서 입력해야함.
+        titleTV.setText("Day "+ diaryContainer.getTitle().toString());
         bodyTV.setText(diaryContainer.getBody().toString());
         dayCountTV.setText(String.valueOf(diaryContainer.getDayCount()));
         dateTV.setText(diaryContainer.getDate().toString());

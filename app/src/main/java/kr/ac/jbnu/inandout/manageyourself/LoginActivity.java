@@ -45,29 +45,6 @@ public class LoginActivity extends Activity {
         sound = soundPool.load(this, R.raw.button, 1);
         udbHelper = new UserDBOpenHelper(this);
 
-        Auto_LogIn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                // TODO Auto-generated method stub
-
-                if (isChecked) {
-
-                    String ID = editTextid.getText().toString();
-                    String PW = editTextpassword.getText().toString();
-
-                    editor.putString("ID", ID);
-                    editor.putString("PW", PW);
-                    editor.putBoolean("Auto_Login_enabled", true);
-                    editor.commit();
-                } else {
-                    editor.clear();
-                    editor.commit();
-                }
-            }
-        });
         if (setting.getBoolean("Auto_Login_enabled", false)) {
             String id = setting.getString("ID", "");
             String password = setting.getString("PW", "");
@@ -92,7 +69,19 @@ public class LoginActivity extends Activity {
         user = new User("", "", "", "");
 
 
+
+
         if (udbHelper.checkUser(id, password, user)) {
+            if(Auto_LogIn.isChecked()){
+
+                String ID = editTextid.getText().toString();
+                String PW = editTextpassword.getText().toString();
+
+                editor.putString("ID", ID);
+                editor.putString("PW", PW);
+                editor.putBoolean("Auto_Login_enabled", true);
+                editor.commit();
+            }
 
             if (user.getMaxDay()>0) {
                 Intent intent = new Intent(this, MenuActivity.class);

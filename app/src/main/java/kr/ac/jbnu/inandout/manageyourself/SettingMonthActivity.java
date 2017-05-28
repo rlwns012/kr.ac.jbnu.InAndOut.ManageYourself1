@@ -37,7 +37,7 @@ public class SettingMonthActivity extends Activity {
         //기간 입력시에 알맞은 값을 넣었는지 확인
         String daystr = days.getText().toString();
         int dayint = Integer.parseInt(daystr);
-        if (dayint < 30 && dayint > 1865) {
+        if (dayint < 30 || dayint > 1865) {
             Toast.makeText(SettingMonthActivity.this, "설정할 수 있는 기간은 최소 30일 최대 1865일 입니다.", Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(this, MenuActivity.class);

@@ -151,7 +151,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public DiaryContainer readDiary(String id, int dayCount) {
         DiaryContainer diaryContainer = new DiaryContainer("", "", "", "", 1);
         database = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "', " + KEY_DAYCOUNT + " = '" + String.valueOf(dayCount) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "' AND " + KEY_DAYCOUNT + " = '" + String.valueOf(dayCount) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
         Cursor cursor = database.rawQuery(selectQuery, null);    // dayCount를 사용하면 되지 않을까??
 
         if (cursor.getCount() > 0) {
@@ -338,7 +338,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public String readQuestion() {
         database = this.getReadableDatabase();
         Random rand = new Random();
-        int idx = rand.nextInt(10);
+        int idx = rand.nextInt(9)+1;
         String selectQuery = "SELECT * FROM " + TABLE_QUESTION + " where " + KEY_IDX + "='" + idx + "'";
         Cursor cursor = database.rawQuery(selectQuery, null);
 

@@ -63,6 +63,7 @@
             android:name=".MyDiary"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
+        <activity android:name=".MyWrittenDiary" />
     </application>
 
 </manifest>

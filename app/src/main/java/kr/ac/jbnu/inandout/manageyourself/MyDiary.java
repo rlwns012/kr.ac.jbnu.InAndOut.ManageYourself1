@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by rlwns on 2017-05-23.
  */
@@ -41,7 +44,7 @@ public class MyDiary extends Activity {
         String daySetting = "Day " + String.valueOf(user.getDayCount());
         dayTV.setText(daySetting);
 
-        user.getMaxDay();
+        user.getMaxDay(); // 몇일을 설정했고 몇일이 남았는지 보여주기 위해 사용
         question = dbHelper.readQuestion().toString();
 
         questionTV.setText(question); //질문 디비가 있으며 질문 디비에서 매번 다른 질문을 꺼내와 세팅한다.
@@ -53,8 +56,12 @@ public class MyDiary extends Activity {
         String title = titleET.getText().toString();
         String body = bodyET.getText().toString();
 
+        String time;
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        time = sdfNow.format(new Date(System.currentTimeMillis()));
+
         dbHelper.creatDiary(user.getId(), title, question, body,
-                "", user.getDayCount()); //date는 추후에 추가
+                time, user.getDayCount()); //date는 추후에 추가
 
         udbHelper.updateUserDay(user.getId(), user.getDayCount());
         int nextDay = user.getDayCount() + 1;

@@ -2,8 +2,10 @@ package kr.ac.jbnu.inandout.manageyourself;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,7 @@ import android.widget.TextView;
  */
 
 public class MenuActivity extends Activity {
-    private Button swotbtn, diarybtn, pyramidbtn, carrerbtn;
+    private Button swotbtn, diarybtn, pyramidbtn, careerbtn;
     private User user;
     SoundPool soundPool;
     int sound;
@@ -29,7 +31,7 @@ public class MenuActivity extends Activity {
         swotbtn = (Button) findViewById(R.id.SWOTbtn);
         diarybtn = (Button) findViewById(R.id.diarybtn);
         pyramidbtn = (Button) findViewById(R.id.pyramidbtn);
-        carrerbtn = (Button) findViewById(R.id.careerbtn);
+        careerbtn = (Button) findViewById(R.id.careerbtn);
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
@@ -65,5 +67,23 @@ public class MenuActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+
+        careerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.career.go.kr/cnet/front/examen/examenMain.do")));
+            }
+        });
+    }
+    public void logout(View view){
+        SharedPreferences sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+
+        Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

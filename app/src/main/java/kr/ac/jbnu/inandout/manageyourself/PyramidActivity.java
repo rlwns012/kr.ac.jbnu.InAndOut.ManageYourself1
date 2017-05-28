@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by rlwns on 2017-05-21.
@@ -58,6 +59,7 @@ public class PyramidActivity extends Activity {
         }else{
             dbHelper.creatPyramid(user.getId(),mission, vision, tactic, actionPlan, actionTask);
         }
+        Toast.makeText(this, "피라미드가 작성 되었습니다.", Toast.LENGTH_SHORT).show();
 
     }
 
