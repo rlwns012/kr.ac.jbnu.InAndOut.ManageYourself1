@@ -67,6 +67,11 @@ public class MyDiary extends Activity {
         int nextDay = user.getDayCount() + 1;
         user.setDayCount(nextDay);
 
+        Intent userIntent = new Intent();
+        userIntent.putExtra("user",user);
+
+        setResult(1,userIntent);
+
         Intent intent = new Intent(this, MyDiaryListActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
@@ -74,6 +79,9 @@ public class MyDiary extends Activity {
     }
 
     public void diarylistbuttonClicked(View view) {
+        Intent userIntent = new Intent();
+        userIntent.putExtra("user",user);
+        setResult(1,userIntent);
         Intent intent = new Intent(this, MyDiaryListActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
@@ -81,6 +89,9 @@ public class MyDiary extends Activity {
     }
 
     public void closeDiary(View view) {
+        Intent userIntent = new Intent();
+        userIntent.putExtra("user",user);
+        setResult(1,userIntent);
         finish();
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by rlwns on 2017-05-21.
  */
@@ -18,6 +20,7 @@ public class SWOTActivity extends Activity {
     private DatabaseOpenHelper dbHelper;
     private Button closeBtn, saveBtn, listBtn;
     private TextView strength, weakness, opportunity, threat;
+    private ArrayList<SWOTContainer> swotContainers;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,13 +40,12 @@ public class SWOTActivity extends Activity {
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
 
         dbHelper = new DatabaseOpenHelper(this);
-        dbHelper.readSWOT(user.getId(),1);//swot을 구분할 수 있는 idx값을 이용한다.
-
-
+        swotContainers = dbHelper.readSWOT(user.getId(),1);//swot을 구분할 수 있는 idx값을 이용한다.
 
     }
 
     public void backToSWOTList(View view){
+
         Intent intent = new Intent(this, SWOTListActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
@@ -53,7 +55,7 @@ public class SWOTActivity extends Activity {
     public void saveSWOT(View view){
 
     }
-    public void closeSWOT(){
+    public void closeSWOT(View view){
         finish();
     }
 

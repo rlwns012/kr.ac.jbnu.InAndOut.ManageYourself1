@@ -54,7 +54,7 @@ public class MenuActivity extends Activity {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
                 Intent intent = new Intent(MenuActivity.this, MyDiary.class);
                 intent.putExtra("user", user);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -76,8 +76,9 @@ public class MenuActivity extends Activity {
             }
         });
     }
-    public void logout(View view){
-        SharedPreferences sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);
+
+    public void logout(View view) {
+        SharedPreferences sharedPreferences = getSharedPreferences("setting", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
@@ -85,5 +86,14 @@ public class MenuActivity extends Activity {
         Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1){
+            user = (User)data.getSerializableExtra("user");
+        }
     }
 }

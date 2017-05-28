@@ -100,5 +100,6 @@ public class MyDiaryListActivity extends AppCompatActivity implements MyDiaryLis
         intent.putExtra("user", user);
         intent.putExtra("dayCount",dayCount);
         startActivity(intent);
+        finish();
     }
 }
