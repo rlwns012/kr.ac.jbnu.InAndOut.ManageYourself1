@@ -64,11 +64,13 @@ public class WrittenSWOT extends Activity {
         startActivity(intent);
         finish();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 2){
+            swotContainer = (SWOTContainer) data.getSerializableExtra("swotContainer");
 
             titleTV.setText(swotContainer.getTitle().toString());
             strengthTV.setText(swotContainer.getStrength());

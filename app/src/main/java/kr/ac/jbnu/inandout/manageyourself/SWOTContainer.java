@@ -1,10 +1,12 @@
 package kr.ac.jbnu.inandout.manageyourself;
 
+import java.io.Serializable;
+
 /**
  * Created by rlwns on 2017-05-24.
  */
 
-public class SWOTContainer {
+public class SWOTContainer implements Serializable {
     private int idx;
     private String title;
     private String strength;

@@ -279,6 +279,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     public void updateSWOT(SWOTContainer swotContainer) {
         //SWOT 분석 수정
+        database = getWritableDatabase();
         String sqlUpdate = "UPDATE " + TABLE_SWOT + " SET " + KEY_OPPORTUNITY + "='" + swotContainer.getOpportunity() + "', " +
                 KEY_SO + "='" + swotContainer.getSo() + "', " +
                 KEY_ST + "='" + swotContainer.getSt() + "', " +
@@ -287,8 +288,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 KEY_THREAT + "='" + swotContainer.getThreat() + "', " +
                 KEY_TITLE + "='" + swotContainer.getTitle() + "', " +
                 KEY_STRENGTH + "='" + swotContainer.getStrength() + "', " +
-                KEY_WEAKNESS + "='" + swotContainer.getWeakness() + "', " +
-                " WHERE " + KEY_IDX + "='" + String.valueOf(swotContainer.getIdx()) + "'";
+                KEY_WEAKNESS + "='" + swotContainer.getWeakness() +
+                "' WHERE " + KEY_IDX + "='" + String.valueOf(swotContainer.getIdx()) + "'";
 
         database.execSQL(sqlUpdate);
     }

@@ -66,10 +66,22 @@ public class SWOTModiActivity extends Activity {
     }
 
     public void modiSWOT(View view) {
+        swotContainer.setTitle(titleModiTV.getText().toString());
+        swotContainer.setStrength(strengthModiTV.getText().toString());
+        swotContainer.setWeakness(weaknessModiTV.getText().toString());
+        swotContainer.setOpportunity(opportunityModiTV.getText().toString());
+        swotContainer.setTreat(threatModiTV.getText().toString());
+        swotContainer.setSo(soModiTV.getText().toString());
+        swotContainer.setSt(stModiTV.getText().toString());
+        swotContainer.setWo(woModiTV.getText().toString());
+        swotContainer.setWt(wtModiTV.getText().toString());
+
+        dbHelper.updateSWOT(swotContainer);
+
         Intent dataIntent = new Intent();
-
-        setResult(1,dataIntent);
-
+        dataIntent.putExtra("swotContainer",swotContainer);
+        setResult(2,dataIntent);
+        finish();
     }
 
     public void closeModiSWOT(View view) {
