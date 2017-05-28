@@ -67,6 +67,7 @@
             android:launchMode="singleTop"/>
         <activity android:name=".MyWrittenDiary" />
         <activity android:name=".WrittenSWOT" />
+        <activity android:name=".SWOTModiActivity" />
     </application>
 
 </manifest>
