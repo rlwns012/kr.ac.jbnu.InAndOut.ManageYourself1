@@ -209,7 +209,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_WEAKNESS, weakness);
         values.put(KEY_THREAT, threat);
 
-
+        database = getWritableDatabase();
         database.insert(TABLE_SWOT, null, values);
 
 
@@ -245,6 +245,36 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             }
         }
         return swotList;
+    }
+
+    public SWOTContainer readSWOT(String id, int idx) {
+        database = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "' AND " + KEY_IDX + "='" + String.valueOf(idx) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        Cursor cursor = database.rawQuery(selectQuery, null);                       // 우선 여기서는 swot의 리스트를 받기 위해 모든 것을 다 가져옴
+        SWOTContainer swotContainer = new SWOTContainer(0, "", "", "", "", "", "", "", "", "");
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    // SWOT의 모든 정보를 가지고 온다.
+                    int swotidx = cursor.getInt(0);
+                    String title = cursor.getString(2);
+                    String so = cursor.getString(3);
+                    String st = cursor.getString(4);
+                    String wo = cursor.getString(5);
+                    String wt = cursor.getString(6);
+                    String strength = cursor.getString(7);
+                    String opportunity = cursor.getString(8);
+                    String threat = cursor.getString(9);
+                    String weakness = cursor.getString(10);
+
+                    swotContainer = new SWOTContainer(swotidx, title, strength, weakness,
+                            opportunity, threat, so, st, wt, wo);
+
+                } while (cursor.moveToNext());
+            }
+        }
+        return swotContainer;
     }
 
     public void updateSWOT(SWOTContainer swotContainer) {
@@ -360,7 +390,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public String readQuestion() {
         database = this.getReadableDatabase();
         Random rand = new Random();
-        int idx = rand.nextInt(9)+1;
+        int idx = rand.nextInt(9) + 1;
         String selectQuery = "SELECT * FROM " + TABLE_QUESTION + " where " + KEY_IDX + "='" + idx + "'";
         Cursor cursor = database.rawQuery(selectQuery, null);
 

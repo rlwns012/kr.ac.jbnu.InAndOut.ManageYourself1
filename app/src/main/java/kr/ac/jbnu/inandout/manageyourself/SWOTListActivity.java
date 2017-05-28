@@ -65,7 +65,7 @@ public class SWOTListActivity extends AppCompatActivity implements SWOTListBtnAd
         // 아이템 생성.
         for (int i = swotContainers.size(); i > 0; i--) {
             item = new SWOTListBtnActivity();
-            item.setText(Integer.toString(i));
+            item.setText(String.valueOf(swotContainers.get(i-1).getIdx()));
             item.setTitle(swotContainers.get(i-1).getTitle());
             list.add(item);
         }
@@ -75,7 +75,12 @@ public class SWOTListActivity extends AppCompatActivity implements SWOTListBtnAd
 
     @Override
     public void onListBtnClick(int position) {
-        Toast.makeText(this, "들어갑니다..", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, WrittenSWOT.class);
+        int index = swotContainers.size()-position;
+        intent.putExtra("idx",index);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
     public void addSWOT(View view){
         Intent intent = new Intent(this, SWOTActivity.class);
