@@ -55,12 +55,14 @@ class MyDiaryListBtnAdapterActivity extends ArrayAdapter implements View.OnClick
 
         // 화면에 표시될 View(Layout이 inflate된)로부터 위젯에 대한 참조 획
         final TextView textTextView = (TextView) convertView.findViewById(R.id.textView1);
+        final TextView titleTextView = (TextView) convertView.findViewById(R.id.diarylisttitle);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final MyDiaryListBtnActivity listViewItem = (MyDiaryListBtnActivity) getItem(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         textTextView.setText(listViewItem.getText());
+        titleTextView.setText(listViewItem.getTitle());
 
         // button2의 TAG에 position값 지정. Adapter를 click listener로 지정.
         Button diarylistenter = (Button) convertView.findViewById(R.id.diarylistenter);

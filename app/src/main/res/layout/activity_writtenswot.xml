@@ -4,35 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/swotTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="SWOT의 제목을 입력해주세요"
-        android:inputType="textPersonName" />
-
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/strengthTV"
+                android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Strength" />
 
-            <EditText
-                android:id="@+id/strengthET"
+            <TextView
+                android:id="@+id/writtenStrengthTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
+                android:layout_weight="10"
+                android:text="TextView" />
         </TableRow>
 
         <TableRow
@@ -40,18 +33,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/weaknessTV"
+                android:id="@+id/textView28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Weakness" />
 
-            <EditText
-                android:id="@+id/weaknessET"
+            <TextView
+                android:id="@+id/writtenWeaknessTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
+                android:layout_weight="10"
+                android:text="TextView" />
         </TableRow>
 
         <TableRow
@@ -59,17 +52,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/opportunityTV"
+                android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Opportunity" />
 
-            <EditText
-                android:id="@+id/opportunityET"
+            <TextView
+                android:id="@+id/writtenOpportunityTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:layout_weight="10"
+                android:text="TextView" />
         </TableRow>
 
         <TableRow
@@ -77,17 +71,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/threatTV"
+                android:id="@+id/textView24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Threat" />
 
-            <EditText
-                android:id="@+id/threatET"
+            <TextView
+                android:id="@+id/writtenThreatTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:layout_weight="10"
+                android:text="TextView" />
         </TableRow>
 
         <TableRow
@@ -95,18 +90,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView22"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="SO 전략" />
 
-            <EditText
-                android:id="@+id/soTV"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/writtenSOTV"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:layout_weight="10"
+                android:text="TextView" />
         </TableRow>
 
         <TableRow
@@ -114,18 +109,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="ST 전략" />
 
-            <EditText
-                android:id="@+id/stTV"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/wriitenSTTV"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:layout_weight="10"
+                android:text="TextView" />
         </TableRow>
 
         <TableRow
@@ -133,18 +128,19 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="WO 전략" />
 
-            <EditText
-                android:id="@+id/woTV"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/writtenWOTV"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:layout_weight="10"
+                android:text=" " />
+
         </TableRow>
 
         <TableRow
@@ -152,18 +148,19 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="WT 전략" />
 
-            <EditText
-                android:id="@+id/wtTV"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/writtenWTTV"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:layout_weight="10"
+                android:text=" " />
+
         </TableRow>
     </TableLayout>
 
@@ -173,30 +170,19 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/backToSWOTListBtn"
+            android:id="@+id/modifySWOTBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="backToSWOTList"
-            android:text="목록" />
+            android:onClick="modifySWOT"
+            android:text="수정하기" />
 
         <Button
-            android:id="@+id/SWOTSaveBtn"
+            android:id="@+id/back2SWOTListBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="saveSWOT"
-            android:text="저장" />
-
-        <Button
-            android:id="@+id/closeSWOT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="closeSWOT"
-            android:text="나가기" />
-
-
+            android:onClick="back2SWOTList"
+            android:text="목록 보기" />
     </LinearLayout>
-
 </LinearLayout>

@@ -40,7 +40,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
-                Intent intent = new Intent(MenuActivity.this, SWOTActivity.class);
+                Intent intent = new Intent(MenuActivity.this, SWOTListActivity.class);
                 Bundle b = new Bundle();
                 intent.putExtras(b);
                 intent.putExtra("user", user);
@@ -68,11 +68,11 @@ public class MenuActivity extends Activity {
             }
         });
 
-
         careerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.career.go.kr/cnet/front/examen/examenMain.do")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                        "http://www.career.go.kr/cnet/web/counsel/explr/bomulsumHome.mdo")));
             }
         });
     }

@@ -27,7 +27,7 @@ public class MyDiaryListActivity extends AppCompatActivity implements MyDiaryLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mydiarylist);
-        // 코드 계속 ...
+
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
         dbHelper = new DatabaseOpenHelper(this);
@@ -62,43 +62,22 @@ public class MyDiaryListActivity extends AppCompatActivity implements MyDiaryLis
             list = new ArrayList<MyDiaryListBtnActivity>();
         }
 
-        // 순서를 위한 i 값을 1로 초기화.
-
-
-
         // 아이템 생성.
         for (int i = diaryContainers.size(); i > 0; i--) {
             item = new MyDiaryListBtnActivity();
             item.setText("Day " + Integer.toString(i));
+            item.setTitle(diaryContainers.get(i-1).getTitle());
             list.add(item);
         }
-
-        /*
-
-        item = new MyDiaryListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-
-
-        item = new MyDiaryListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-
-        item = new MyDiaryListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-
-        */
         return true;
     }
 
     @Override
     public void onListBtnClick(int position) {
-        Toast.makeText(this, "들어갑니다..", Toast.LENGTH_SHORT).show();
-        int dayCount = diaryContainers.size()-position;
+        int dayCount = diaryContainers.size() - position;
         Intent intent = new Intent(this, MyWrittenDiary.class);
         intent.putExtra("user", user);
-        intent.putExtra("dayCount",dayCount);
+        intent.putExtra("dayCount", dayCount);
         startActivity(intent);
         finish();
     }

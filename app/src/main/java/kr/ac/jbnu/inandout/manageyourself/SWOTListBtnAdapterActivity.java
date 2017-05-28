@@ -1,4 +1,5 @@
 package kr.ac.jbnu.inandout.manageyourself;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +31,8 @@ class SWOTListBtnAdapterActivity extends ArrayAdapter implements View.OnClickLis
 
 
     // ListViewBtnAdapter 생성자. 마지막에 ListBtnClickListener 추가.
-    SWOTListBtnAdapterActivity(Context context, int resource, ArrayList<SWOTListBtnActivity> list, ListBtnClickListener clickListener) {
+    SWOTListBtnAdapterActivity(Context context, int resource,
+                               ArrayList<SWOTListBtnActivity> list, ListBtnClickListener clickListener) {
         super(context, resource, list);
 
         // resource id 값 복사. (super로 전달된 resource를 참조할 방법이 없음.)
@@ -52,14 +54,15 @@ class SWOTListBtnAdapterActivity extends ArrayAdapter implements View.OnClickLis
         }
 
         // 화면에 표시될 View(Layout이 inflate된)로부터 위젯에 대한 참조 획
-        final TextView textTextView = (TextView) convertView.findViewById(R.id.textView2);
+        final TextView indexTextView = (TextView) convertView.findViewById(R.id.swotIndex);
+        final TextView titleTextView = (TextView) convertView.findViewById(R.id.swotlisttitle);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final SWOTListBtnActivity listViewItem = (SWOTListBtnActivity) getItem(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        textTextView.setText(listViewItem.getText());
-
+        indexTextView.setText(listViewItem.getText());
+        titleTextView.setText(listViewItem.getTitle());
 
         // button2의 TAG에 position값 지정. Adapter를 click listener로 지정.
         Button swotlistenter = (Button) convertView.findViewById(R.id.swotlistenter);

@@ -1,9 +1,8 @@
 package kr.ac.jbnu.inandout.manageyourself;
 
-import android.graphics.drawable.Drawable;
-
 public class MyDiaryListBtnActivity {
     private String textStr ;
+    private String title;
 
     public void setText(String text) {
         textStr = text ;
@@ -11,5 +10,13 @@ public class MyDiaryListBtnActivity {
 
     public String getText() {
         return this.textStr ;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

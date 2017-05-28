@@ -1,5 +1,6 @@
 package kr.ac.jbnu.inandout.manageyourself;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,54 +16,27 @@ import java.util.ArrayList;
 
 public class SWOTListActivity extends AppCompatActivity implements SWOTListBtnAdapterActivity.ListBtnClickListener {
 
-    static final String[] LIST_MENU = {} ;
-    // ... 코드 계속
+    static final String[] LIST_MENU = {};
+    private DatabaseOpenHelper dbHelper;
+    private User user;
+    private ArrayList<SWOTContainer> swotContainers;
 
-    public boolean loadItemsFromDB(ArrayList<SWOTListBtnActivity> list) {
-        SWOTListBtnActivity item ;
-        int i ;
-
-        if (list == null) {
-            list = new ArrayList<SWOTListBtnActivity>() ;
-        }
-
-        // 순서를 위한 i 값을 1로 초기화.
-        i = 4 ;
-
-        // 아이템 생성.
-        item = new SWOTListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-        i-- ;
-
-        item = new SWOTListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-        i-- ;
-
-        item = new SWOTListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-        i-- ;
-
-        item = new SWOTListBtnActivity() ;
-        item.setText(Integer.toString(i) + "번") ;
-        list.add(item) ;
-
-        return true ;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swotlist);
-        // 코드 계속 ...
 
-        ListView listview ;
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user"); // 로그인에서 받아온 user 정보를 넘겨 받는다.
+        dbHelper = new DatabaseOpenHelper(this);
+        swotContainers = dbHelper.readSWOT(user.getId());
+
+        ListView listview;
         SWOTListBtnAdapterActivity adapter;
-        ArrayList<SWOTListBtnActivity> items = new ArrayList<SWOTListBtnActivity>() ;
+        ArrayList<SWOTListBtnActivity> items = new ArrayList<SWOTListBtnActivity>();
 
         // items 로드.
-        loadItemsFromDB(items) ;
+        loadItemsFromDB(items);
 
         // Adapter 생성
         adapter = new SWOTListBtnAdapterActivity(this, R.layout.activity_swotlistbtn, items, this);
@@ -76,12 +50,38 @@ public class SWOTListActivity extends AppCompatActivity implements SWOTListBtnAd
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // TODO : item click
             }
-        }) ;
+        });
+    }
+
+    public boolean loadItemsFromDB(ArrayList<SWOTListBtnActivity> list) {
+        SWOTListBtnActivity item;
+
+        if (list == null) {
+            list = new ArrayList<SWOTListBtnActivity>();
+        }
+
+        // 순서를 위한 i 값을 1로 초기화.
+
+        // 아이템 생성.
+        for (int i = swotContainers.size(); i > 0; i--) {
+            item = new SWOTListBtnActivity();
+            item.setText(Integer.toString(i));
+            item.setTitle(swotContainers.get(i-1).getTitle());
+            list.add(item);
+        }
+
+        return true;
     }
 
     @Override
     public void onListBtnClick(int position) {
-        Toast.makeText(this, "들어갑니다..", Toast.LENGTH_SHORT).show() ;
+        Toast.makeText(this, "들어갑니다..", Toast.LENGTH_SHORT).show();
+    }
+    public void addSWOT(View view){
+        Intent intent = new Intent(this, SWOTActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
 
 }

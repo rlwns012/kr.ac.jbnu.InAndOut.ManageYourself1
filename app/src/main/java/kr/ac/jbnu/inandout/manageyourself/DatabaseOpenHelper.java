@@ -65,25 +65,41 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         database = db;
+
         String diarysql = "CREATE TABLE IF NOT EXISTS " + TABLE_DIARY + " ( "
-                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
-                + " TEXT, " + KEY_TITLE + " TEXT, " + KEY_BODY + " TEXT, " + KEY_DATE + " TEXT, "
-                + KEY_DAYCOUNT + " INT, " + KEY_DAYQUES + " TEXT)";
+                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_ID + " TEXT, "
+                + KEY_TITLE + " TEXT, "
+                + KEY_BODY + " TEXT, "
+                + KEY_DATE + " TEXT, "
+                + KEY_DAYCOUNT + " INT, "
+                + KEY_DAYQUES + " TEXT)";
 
         database.execSQL(diarysql);
 
         String swotsql = "CREATE TABLE IF NOT EXISTS " + TABLE_SWOT + " ( "
-                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
-                + " TEXT, " + KEY_TITLE + " TEXT, " + KEY_SO + " TEXT, " + KEY_ST + " TEXT, "
-                + KEY_WO + " TEXT, " + KEY_WT + " TEXT, " + KEY_STRENGTH + " TEXT, " + KEY_OPPORTUNITY
-                + " TEXT, " + KEY_WEAKNESS + " TEXT, " + KEY_THREAT + " TEXT)";
+                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_ID + " TEXT, "
+                + KEY_TITLE + " TEXT, "
+                + KEY_SO + " TEXT, "
+                + KEY_ST + " TEXT, "
+                + KEY_WO + " TEXT, "
+                + KEY_WT + " TEXT, "
+                + KEY_STRENGTH + " TEXT, "
+                + KEY_OPPORTUNITY + " TEXT, "
+                + KEY_WEAKNESS + " TEXT, "
+                + KEY_THREAT + " TEXT)";
 
         database.execSQL(swotsql);
 
         String pyramidsql = "CREATE TABLE IF NOT EXISTS " + TABLE_PYRAMID + " ( "
-                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ID
-                + " TEXT, " + KEY_MISSION + " TEXT, " + KEY_VISION + " TEXT, " + KEY_TACTIC + " TEXT, "
-                + KEY_ACTIONTASK + " TEXT, " + KEY_ACTIONPLAN + " TEXT)";
+                + KEY_IDX + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_ID + " TEXT, "
+                + KEY_MISSION + " TEXT, "
+                + KEY_VISION + " TEXT, "
+                + KEY_TACTIC + " TEXT, "
+                + KEY_ACTIONTASK + " TEXT, "
+                + KEY_ACTIONPLAN + " TEXT)";
 
         database.execSQL(pyramidsql);
 
@@ -151,7 +167,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public DiaryContainer readDiary(String id, int dayCount) {
         DiaryContainer diaryContainer = new DiaryContainer("", "", "", "", 1);
         database = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "' AND " + KEY_DAYCOUNT + " = '" + String.valueOf(dayCount) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        String selectQuery = "SELECT * FROM " + TABLE_DIARY + " where id='" + id + "' AND "
+                + KEY_DAYCOUNT + " = '" + String.valueOf(dayCount) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
         Cursor cursor = database.rawQuery(selectQuery, null);    // dayCount를 사용하면 되지 않을까??
 
         if (cursor.getCount() > 0) {
@@ -177,27 +194,31 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    public void creatSWOT(String id, String SO, String ST, String WO, String WT, String oppotunity,
-                          String weakness, String strength, String treat) {
+    public void creatSWOT(String id, String SO, String ST, String WO, String WT, String opportunity,
+                          String weakness, String strength, String threat, String title) {
         // 새로운 SWOT 분석 작성
         ContentValues values = new ContentValues();
         values.put(KEY_ID, id);
+        values.put(KEY_TITLE, title);
         values.put(KEY_SO, SO);
         values.put(KEY_ST, ST);
         values.put(KEY_WO, WO);
         values.put(KEY_WT, WT);
         values.put(KEY_STRENGTH, strength);
-        values.put(KEY_OPPORTUNITY, oppotunity);
-        values.put(KEY_THREAT, treat);
+        values.put(KEY_OPPORTUNITY, opportunity);
         values.put(KEY_WEAKNESS, weakness);
+        values.put(KEY_THREAT, threat);
+
+
         database.insert(TABLE_SWOT, null, values);
+
+
     }
 
-    public ArrayList<SWOTContainer> readSWOT(String id, int idx) {
+    public ArrayList<SWOTContainer> readSWOT(String id) {
         database = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "' AND "
-                + KEY_IDX + "='" + String.valueOf(idx) + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
+        String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
         Cursor cursor = database.rawQuery(selectQuery, null);                       // 우선 여기서는 swot의 리스트를 받기 위해 모든 것을 다 가져옴
 
         ArrayList swotList = new ArrayList();
@@ -206,6 +227,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     // SWOT의 모든 정보를 가지고 온다.
+                    int idx = cursor.getInt(0);
                     String title = cursor.getString(2);
                     String so = cursor.getString(3);
                     String st = cursor.getString(4);
