@@ -80,10 +80,10 @@ public class LoginActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             //알람시간 calendar에 set해주기
 
-            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 14, 56, 10);
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 20, 00, 00);
 
             //알람 예약
-            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),24*3600*1000, sender);
 
         }
     }

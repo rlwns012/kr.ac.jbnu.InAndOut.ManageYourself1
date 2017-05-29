@@ -52,9 +52,14 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 soundPool.play(sound, 1, 1, 0, 0, 1);
+                Intent svIntent = new Intent(
+                        getApplicationContext(),//현재제어권자
+                        MusicService.class); // 이동할 컴포넌트
+                startService(svIntent); // 서비스 시작
+
                 Intent intent = new Intent(MenuActivity.this, MyDiary.class);
                 intent.putExtra("user", user);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -92,8 +97,8 @@ public class MenuActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1){
-            user = (User)data.getSerializableExtra("user");
+        if (requestCode == 1) {
+            user = (User) data.getSerializableExtra("user");
         }
     }
 }

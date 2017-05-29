@@ -2,9 +2,11 @@ package kr.ac.jbnu.inandout.manageyourself;
 
 import android.animation.AnimatorSet;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -68,9 +70,14 @@ public class MyDiary extends Activity {
         user.setDayCount(nextDay);
 
         Intent userIntent = new Intent();
-        userIntent.putExtra("user",user);
+        userIntent.putExtra("user", user);
 
-        setResult(1,userIntent);
+        setResult(1, userIntent);
+
+        Intent svIntent = new Intent(
+                getApplicationContext(),//현재제어권자
+                MusicService.class); // 이동할 컴포넌트
+        stopService(svIntent); // 서비스 종료
 
         Intent intent = new Intent(this, MyDiaryListActivity.class);
         intent.putExtra("user", user);
@@ -79,9 +86,14 @@ public class MyDiary extends Activity {
     }
 
     public void diarylistbuttonClicked(View view) {
+        Intent svIntent = new Intent(
+                getApplicationContext(),//현재제어권자
+                MusicService.class); // 이동할 컴포넌트
+        stopService(svIntent); // 서비스 종료
+
         Intent userIntent = new Intent();
-        userIntent.putExtra("user",user);
-        setResult(1,userIntent);
+        userIntent.putExtra("user", user);
+        setResult(1, userIntent);
         Intent intent = new Intent(this, MyDiaryListActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
@@ -89,9 +101,14 @@ public class MyDiary extends Activity {
     }
 
     public void closeDiary(View view) {
+        Intent svIntent = new Intent(
+                getApplicationContext(),//현재제어권자
+                MusicService.class); // 이동할 컴포넌트
+        stopService(svIntent); // 서비스 종료
         Intent userIntent = new Intent();
-        userIntent.putExtra("user",user);
-        setResult(1,userIntent);
+        userIntent.putExtra("user", user);
+        setResult(1, userIntent);
         finish();
     }
+
 }
