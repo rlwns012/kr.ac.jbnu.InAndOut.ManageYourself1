@@ -1,6 +1,9 @@
 package kr.ac.jbnu.inandout.manageyourself;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -11,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 /**
  * Created by rlwns on 2017-04-03.
@@ -26,11 +31,13 @@ public class LoginActivity extends Activity {
     private SharedPreferences.Editor editor;
     private UserDBOpenHelper udbHelper;
     private User user;
+    private static int ONE_MINUTE = 5626;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        new AlarmHATT(getApplicationContext()).Alarm();
 
         startActivity(new Intent(this, SplashActivity.class));  //처음 게임 로딩 화면을 띄워준다.
 
@@ -57,6 +64,30 @@ public class LoginActivity extends Activity {
         }
     }
 
+    public class AlarmHATT {
+        private Context context;
+
+        public AlarmHATT(Context context) {
+            this.context = context;
+        }
+
+        public void Alarm() {
+            AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(LoginActivity.this, BroadcastD.class);
+
+            PendingIntent sender = PendingIntent.getBroadcast(LoginActivity.this, 0, intent, 0);
+
+            Calendar calendar = Calendar.getInstance();
+            //알람시간 calendar에 set해주기
+
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 14, 56, 10);
+
+            //알람 예약
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+
+        }
+    }
+
     public void gameStartButtonClicked(View view) {
 
         soundPool.play(sound, 1, 1, 0, 0, 1);
@@ -69,10 +100,8 @@ public class LoginActivity extends Activity {
         user = new User("", "", "", "");
 
 
-
-
         if (udbHelper.checkUser(id, password, user)) {
-            if(Auto_LogIn.isChecked()){
+            if (Auto_LogIn.isChecked()) {
 
                 String ID = editTextid.getText().toString();
                 String PW = editTextpassword.getText().toString();
@@ -83,7 +112,7 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
 
-            if (user.getMaxDay()>0) {
+            if (user.getMaxDay() > 0) {
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
