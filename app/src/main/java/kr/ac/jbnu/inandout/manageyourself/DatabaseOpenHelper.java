@@ -220,9 +220,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT * FROM " + TABLE_SWOT + " where id='" + id + "'"; // 아이디만 생각하는게 아니라 몇번째 게시물인지도 파악해야함
         Cursor cursor = database.rawQuery(selectQuery, null);                       // 우선 여기서는 swot의 리스트를 받기 위해 모든 것을 다 가져옴
-
         ArrayList swotList = new ArrayList();
-
         if (cursor.getCount() > 0) {
             if (cursor.moveToFirst()) {
                 do {
@@ -267,10 +265,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     String opportunity = cursor.getString(8);
                     String threat = cursor.getString(9);
                     String weakness = cursor.getString(10);
-
                     swotContainer = new SWOTContainer(swotidx, title, strength, weakness,
                             opportunity, threat, so, st, wt, wo);
-
                 } while (cursor.moveToNext());
             }
         }
